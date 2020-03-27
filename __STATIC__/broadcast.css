@@ -1,0 +1,28 @@
+.csBroadcastMsg {
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: coral;
+  color: white;
+  font-size: 25px;
+  position: absolute;
+  z-index: 9999;
+  visibility: hidden;
+}
+
+.csBroadcastMsgClose {
+  float: right;
+  padding-right: 25px;
+}
+
+.csBroadcastMsgTime {
+  float: right;
+  padding-right: 25px;
+  color: gray;
+  font-size: 12px;
+}
+
+.csBroadcastMsgText {
+  padding-top: 20px;
+  padding-left: 25px;
+}
