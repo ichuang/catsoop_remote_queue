@@ -9,5 +9,18 @@ A copy of a working `catsoop_queue` is included in this repo for reference; this
 ## Installation
 
 1. Put the `remote_queue` directory and its files, into the top level of your catsoop installation
-2. Edit your `catsoop-queue/www/templates/student_view.html` file and make sure it has the same content as [student_view.html](catsoop-queue/www/templates/student_view.html) (the relevant part is in the first `<div>`)
+1. Edit your `catsoop-queue/www/templates/student_view.html` file and make sure it has the same content as [student_view.html](catsoop-queue/www/templates/student_view.html) (the relevant part is in the first `<div>`)
+1. Add a link for your staff to access the `remote_queue` staff page; this is where they go to set their video meeting room URL
+
+## Usage
+
+Staff should:
+
+1. Set their video meeting URL, and mark themselves active
+2. When a queue ticket is claimed by the staff member, the student will see the staff member's video meeting URL in the popup
+
+Students should:
+
+1. Enter a queue ticket as usual
+2. When the your-ticket-has-been-claimed popup appears, click on the URL displayed
 
