@@ -2,7 +2,9 @@
 
 This repository provides files to enable catsoop to provide "remote help queue" functionality.
 
-This assumes you're using a catsoop_queue node.js server that has been suitably modified.
+This assumes you're using a `catsoop_queue` node.js server that has been suitably modified.
+
+A copy of a working `catsoop_queue` is included in this repo for reference; this content is released under the same license as in that copy.
 
 ## Installation
 
