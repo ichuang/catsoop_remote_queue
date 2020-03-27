@@ -1,0 +1,17 @@
+*~
+\#*\#
+*.swp
+
+bower_components
+node_modules
+npm-debug.log
+rethinkdb_data
+
+logs/
+error.log
+info.log
+
+dist
+coverage
+
+nohup.out

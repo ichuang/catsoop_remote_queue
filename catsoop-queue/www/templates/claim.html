@@ -1,0 +1,52 @@
+<div class="row" as-kbs="'claim', .current_claim">
+  <div style="display: flex">
+    {{#current_claim.actions}}
+      <div class="col-xs-12 col-sm-{{Math.floor(12/current_claim.actions.length)}}">
+        <ActionButtonClaimed
+            entry_id={{current_claim.username}}
+            action={{.}}
+            text={{entry_types[current_claim.type].buttons[.].text}}
+            shortcut={{entry_types[current_claim.type].buttons[.].shortcuts[0]}}
+        />
+      </div>
+    {{/}}
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <p class="text-center h1">
+      {{claimTime}}
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-4">
+    <p class="text-left h2">
+      {{current_claim.data.location}}
+    </p>
+  </div>
+  <div class="col-xs-12 col-sm-8">
+    <p class="text-right h2" id="claim_data">
+      {{current_claim.data.assignment.display_name}}
+    </p>
+  </div>
+</div>
+<div class="row">
+  {{#current_claim.data.group}}
+    <div class="col-xs-12 col-sm-6 col-lg-4">
+      <div class="thumbnail">
+        {{#PHOTOS_ENABLED}}
+        <img class="img-responsive img-thumbnail"
+             src="{{get_photo_url(username)}}">
+        {{/}}
+        <div class="caption">
+          <h3 class="text-center">{{username}}</h3>
+          <p class="text-center">{{real_name}}</p>
+        </div>
+      </div>
+    </div>
+  {{/}}
+</div>
+<div id="rubric_div"></div>

@@ -1,0 +1,12 @@
+{{#SHOW_STAFF_LIST}}
+<div class="col-sm-2">
+    <StaffList />
+</div>
+{{/}}
+<div class="col-sm-{{#SHOW_STAFF_LIST}}10{{else}}12{{/}} {{#locked}}queue-locked{{/}}">
+  {{#if current_claim}}
+    {{>claim}}
+  {{else}}
+    {{>table}}
+  {{/if}}
+</div>

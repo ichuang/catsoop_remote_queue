@@ -1,0 +1,106 @@
+{{#disconnected}}
+<div class="alert alert-danger">
+  <strong>Disconnected!</strong> Your client has disconnected from the server.
+  Please check your network connection.
+</div>
+{{/}}
+
+<ClaimFirst entry={{first_unclaimed}} />
+
+<div style="margin-top:1em"></div>
+
+<table id="queuelist" border=1 style="border: 1px solid black;" width="100%"as-kbs="'table'">
+
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Assignment</th>
+      <th>Extra Info</th>
+      <th>Staff</th>
+      <th>Timing</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody id="queue_rows">
+    {{#display_entries}}
+      <Entry id={{id}} type={{type}} data={{data}} />
+    {{/}}
+  </tbody>
+
+</table>
+
+<div class="row">
+  <div class="col-xs-12">
+    <p>{{num_claimed}} claimed</p>
+  </div>
+</div>
+
+<div style="display: flex;">
+  {{#permissions.show_claimed}}
+  <div>
+    <button
+        class="btn btn-block"
+        on-click="@this.toggle_setting('show_claimed')"
+    >{{#show_claimed}}Hide{{else}}Show{{/}} Claimed</button>
+  </div>
+  {{/}}
+
+  {{#permissions.clear}}
+  <div>
+    <button
+        class="btn btn-block btn-danger"
+        on-click="@this.clear()"
+    >Clear Queue</button>
+  </div>
+  {{/}}
+
+  {{#permissions.lock}}
+  <div>
+    {{#if locked}}
+      <button
+          class="btn btn-block btn-warning"
+          on-click="@this.unlock()"
+      >
+        Unlock Queue
+      </button>
+    {{else}}
+      <button
+          class="btn btn-block btn-warning"
+          on-click="@this.lock()"
+      >
+        Lock Queue
+      </button>
+    {{/if}}
+  </div>
+  {{/}}
+
+  {{#permissions.notifications}}
+    {{#AUDIO_ENABLED}}
+    <div>
+        <button
+            class="btn btn-block"
+            on-click="@this.toggle_setting('notify_sound')"
+        >{{#if notify_sound}}Disable{{else}}Enable{{/if}} Sounds</button>
+    </div>
+    {{/}}
+
+    <div>
+        <button
+            class="btn btn-block"
+            on-click="@this.toggle_setting('notify_toast')"
+        >{{#if notify_toast}}Disable{{else}}Enable{{/if}} Popups</button>
+    </div>
+  {{/}}
+</div>
+<div>
+  <div style="padding-top:2em;">
+    <a href="?queue_view=student">Switch to student view</a>
+  </div>
+</div>
+
+{{#AUDIO_ENABLED}}
+<audio id="queue-notification-sound">
+  <source src="{{get_audio_url('notification.wav')}}" type="audio/wav" />
+</audio>
+{{/}}

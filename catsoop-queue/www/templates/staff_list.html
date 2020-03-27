@@ -1,0 +1,31 @@
+<div class="queue-staff-list">
+  <div class="queue-staff-confirmed">
+    Confirmed
+    <ul class="list-group">
+      {{#confirmed_staff}}
+        <li class="list-group-item">
+          {{.}}
+          <a href="" on-click="@this.check_out(.)" class="pull-right">
+            <span class="glyphicon glyphicon-remove queue-staff-remove"></span>
+          </a>
+        </li>
+      {{/}}
+    </ul>
+    <button
+        class="btn btn-block btn-danger"
+        on-click="@this.check_out_all()"
+    >
+      Remove all staff
+    </button>
+  </div>
+  <div class="queue-staff-pending">
+    Pending
+    <ul class="list-group">
+      {{#unconfirmed_staff}}
+        <li class="list-group-item">
+          <a href="" on-click="@this.check_in(.)">{{.}}</a>
+        </li>
+      {{/}}
+    </ul>
+  </div>
+</div>

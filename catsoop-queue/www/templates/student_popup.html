@@ -1,0 +1,13 @@
+<div id="queue_div">
+  {{#_visible}}
+    {{> student_view}}
+  {{/}}
+  <div>
+    <button
+        on-click="@this.toggle('_visible')"
+        class="btn btn-link"
+    >
+      {{#_visible}}Hide{{else}}Show{{/}} Queue Controls
+    </button>
+  </div>
+</div>

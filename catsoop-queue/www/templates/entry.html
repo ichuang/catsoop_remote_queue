@@ -1,0 +1,24 @@
+<tr data-id={{id}}
+    class="queue-row"
+    data-type={{type}}
+    data-state={{data.state}}
+>
+  <td>{{real_name}}{{otherMemberNames(data.group || [], username)}}</td>
+  <td>{{data.assignment.display_name}}{{#data.state === 'claimed'}} ({{type}}){{/}}</td>
+  <td>{{data.location}}</td>
+  <td>{{data.state === 'claimed' ? data.claimant_real_name : ''}}</td>
+  <td>{{timeFromNow}}</td>
+  <td>
+    <div>
+      {{#actions}}
+        <div class="btn-group">
+          <ActionButton
+              entry_id={{username}}
+              action={{.}}
+              text={{entry_types[type].buttons[.].text}}
+          />
+        </div>
+      {{/}}
+    </div>
+  </td>
+</tr>

@@ -1,0 +1,140 @@
+{{#if my_entry}}
+  <div>
+    {{#if my_entry.data.claimant}}
+      <p>{{my_entry.data.claimant_real_name}} is ready to help you!</p>
+
+         <p id="remote_url"></p>
+
+<script type="text/javascript">
+
+var remote_url_processor = function(){
+    //
+    // This is a temporary mechanism to allow a remote video URL to be displayed for some claimants     
+    // This code waits for the #remote_url div to be ready, then does fills that in,
+    // based on data received from an ajax call a 6.036 catsoop endpoint.
+    //
+    var ru_loaded = false;
+    var cnt = 0;
+    var setup = function(){
+	cnt += 1;
+	if (cnt > 10000){
+	    console.log("[remote_url_processor] exiting");
+	    return
+	}
+	try {
+	    if (document.querySelector('#remote_url')){
+		if (!ru_loaded){
+		    get_remote_url();
+		    ru_loaded = true;
+		}
+	    }else{
+		ru_loaded = false;
+            }
+	}
+ 	catch(err){
+	    console.log('[remote_url_processor] err=', err);
+	}
+	if (!ru_loaded){
+	    setTimeout(setup, 500);
+	}
+    }
+    
+    setTimeout(setup, 500);
+    
+    var get_remote_url = function(){
+	// load remote url via ajax and put in div
+	    var url = "{{REMOTE_QUEUE}}/remote_queue?get={{my_entry.data.claimant}}";
+	console.log("[remote_url_processor] Loading claimant info from ", url);
+	
+	var xmlhttp = new XMLHttpRequest();
+	
+	xmlhttp.onreadystatechange = function() {
+	    if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+		if (xmlhttp.status == 200) {
+		    rd = document.querySelector('#remote_url');
+		    rd.innerHTML = xmlhttp.responseText;
+		    console.log("[remote_url_processor] got remote url, setting ", rd);
+		}
+		else if (xmlhttp.status == 400) {
+		    console.log('[remote_url_processor] There was an error 400');
+		}
+		else {
+		    console.log('[remote_url_processor] something else other than 200 was returned');
+		}
+	    }
+	};
+	xmlhttp.open("GET", url, true);
+	xmlhttp.send();
+    }
+
+    return {"setup": setup,
+	   }
+}
+
+rup = remote_url_processor();
+rup.setup();
+
+</script>
+
+    {{else}}
+      <p>You are in the queue at position {{position}} for {{my_entry.type}} ({{my_entry.data.assignment.display_name}})</p>
+    {{/if}}
+  </div>
+  <div class="form-group">
+    <button on-click="@this.remove()" class="btn btn-block btn-danger">Remove</button>
+  </div>
+{{else}}
+  <form class="form-horizontal" on-submit="@this.askForHelp()">
+    <div class="form-group">
+      <label for="queue_assignment" class="col-sm-3 control-label">Assignment</label>
+      <div class="col-sm-9">
+      <input
+          type="text"
+          class="form-control"
+          id="queue_assignment"
+          placeholder="e.g. Check Yourself 2"
+          value="{{name}}"
+          autocomplete="off"
+      >
+      </div>
+    </div>
+    <div class="form-group" style="padding-bottom:5px">
+      <label for="queue_location" class="col-sm-3 control-label">Extra Info (Optional)</label>
+      <div class="col-sm-9">
+      <input
+          type="text"
+          class="form-control"
+          id="queue_location"
+          placeholder=""
+          value="{{location}}"
+          autocomplete="off"
+      >
+      </div>
+    </div>
+    <button
+        type="submit"
+        class="btn btn-block btn-primary"
+        {{^(name)}}disabled{{/}}
+    >Ask for Help</button>
+  </form>
+{{/if}}
+
+<div style="padding-top:5px;">
+{{#AUDIO_ENABLED}}
+    <button
+        class="btn btn-block"
+        on-click="@this.toggle_setting('notify_sound')"
+    >{{#if notify_sound}}Disable{{else}}Enable{{/if}} Sounds</button>
+{{/}}
+
+    <button
+        class="btn btn-block"
+        on-click="@this.toggle_setting('notify_toast')"
+    >{{#if notify_toast}}Disable{{else}}Enable{{/if}} Notifications</button>
+</div>
+
+{{#AUDIO_ENABLED}}
+<audio id="queue-notification-sound">
+  <source src="{{get_audio_url('notification.wav')}}" type="audio/wav" />
+</audio>
+{{/}}

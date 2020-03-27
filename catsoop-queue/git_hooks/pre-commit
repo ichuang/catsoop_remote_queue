@@ -1,0 +1,14 @@
+#!/bin/sh
+
+git diff-files --quiet
+DIRTY=$?
+
+[ $DIRTY -ne 0 ] && git stash -q --keep-index
+
+npm test
+RESULT=$?
+
+[ $DIRTY -ne 0 ] && git stash pop -q
+
+[ $RESULT -ne 0 ] && exit 1
+exit 0

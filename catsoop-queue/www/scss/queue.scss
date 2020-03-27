@@ -1,0 +1,38 @@
+.queue-row[data-type="help"] {
+  background-color: rgb(153, 227, 150);
+}
+
+.queue-row[data-type="checkoff"] {
+  background-color: rgb(255, 161, 161);
+}
+
+.queue-row[data-state="claimed"] {
+  background-color: rgb(255, 255, 13);
+}
+
+/* Keep the table buttons from taking up tons of space by making them as small as possible. */
+.queue-row td:last-child {
+    white-space: nowrap;
+    width: 0;
+}
+
+
+#queue_div {
+  background-color: #dddddd;
+  padding: 10px;
+  border: 2px solid #222222;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 1998;
+  max-width: 35rem;
+}
+
+
+.queue-locked {
+  background-color: #ff0000;
+}
+
+.queue-staff-remove {
+  color: #ff0000;
+}
